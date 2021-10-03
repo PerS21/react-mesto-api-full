@@ -1,0 +1,12 @@
+.popup__container_content-infoTooltip{
+    width: 430px;
+    height: 330px;
+    margin: auto;
+    background-color: white;
+    border-radius: 10px;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    position: relative;
+}

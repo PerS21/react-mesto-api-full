@@ -1,0 +1,14 @@
+.profile__name-line {
+    display: flex;
+    position: relative;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+@media (max-width: 767px) {
+    .profile__name-line {
+        justify-content: space-evenly;
+        margin: auto;
+        max-width: 80%;
+    }
+}

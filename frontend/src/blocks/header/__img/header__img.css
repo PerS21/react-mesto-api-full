@@ -1,0 +1,12 @@
+.header__img {
+  margin-bottom: 40px;
+}
+
+@media (max-width: 767px) {
+  .header__img {
+    margin-left: 27px;
+    margin-bottom: 31.6px;
+    width: 103.74px;
+    height: 24.4px;
+  }
+}

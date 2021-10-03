@@ -1,0 +1,21 @@
+.profile__edit-button {
+  background-color: black;
+  border: 1px solid #ffffff;
+  width: 24px;
+  height: 24px;
+  margin-left: 18px;
+  outline: 0;
+}
+
+@media (max-width: 767px) {
+  .profile__edit-button {
+    position: absolute;
+    right: -25px;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+}
