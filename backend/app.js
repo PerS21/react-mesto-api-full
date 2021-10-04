@@ -13,6 +13,7 @@ const {
   createUser,
 } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const isURL = (value) => {
   const result = validator.isURL(value);
@@ -24,19 +25,19 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3001,
+  PORT = 3000,
 } = process.env;
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/mestodb')
-  .catch((error) => console.log(error));
+mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(express.json());
 
 module.exports.createCard = (req, res) => {
-  console.log(req.user._id);
 };
+
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -56,6 +57,8 @@ app.post('/signup', celebrate({
 app.use(auth);
 
 app.use(routes);
+
+app.use(errorLogger);
 
 app.use(errors());
 

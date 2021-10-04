@@ -5,7 +5,7 @@ class Api {
 
         this._headers = {
             authorization: this._token,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json; charset=utf-8'
         }
     }
 
@@ -102,5 +102,5 @@ class Api {
     }
 }
 
-const api = new Api('https://mesto.nomoreparties.co/v1/cohort-25', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
+const api = new Api('http://localhost:3001', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
 export default api;

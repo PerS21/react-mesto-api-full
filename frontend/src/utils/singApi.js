@@ -4,7 +4,8 @@ class SingApi {
         this._token = token;
 
         this._headers = {
-            'Content-Type': 'application/json',
+            'Content-Type': 'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': '*'
         }
     }
 
@@ -57,5 +58,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('https://auth.nomoreparties.co', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
+const singApi = new SingApi('http://localhost:3001', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
 export default singApi;
