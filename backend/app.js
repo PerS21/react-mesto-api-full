@@ -13,6 +13,7 @@ const {
   createUser,
 } = require('./controllers/users');
 const auth = require('./middlewares/auth');
+const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const isURL = (value) => {
@@ -25,7 +26,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3000,
+  PORT = 3001,
 } = process.env;
 
 const app = express();
@@ -38,6 +39,8 @@ module.exports.createCard = (req, res) => {
 };
 
 app.use(requestLogger);
+
+app.use(cors);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

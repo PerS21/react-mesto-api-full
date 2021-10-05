@@ -22,7 +22,7 @@ class SingApi {
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка ${res.status}`); 
+                return Promise.reject(`Ошибка ${res.status}`);
             })
     }
 
@@ -39,7 +39,7 @@ class SingApi {
                 if (res.ok) {
                     return res.json();
                 }
-                return Promise.reject(`Ошибка ${res.status}`); 
+                return Promise.reject(`Ошибка ${res.status}`);
             })
     }
 
@@ -58,5 +58,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('http://localhost:3001', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
+const singApi = new SingApi('http://api.pers.nomoredomains.monster', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
 export default singApi;
