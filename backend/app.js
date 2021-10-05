@@ -8,6 +8,7 @@ const {
 } = require('celebrate');
 const validator = require('validator');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const routes = require('./routes');
 const {
   login,
@@ -39,14 +40,14 @@ module.exports.createCard = (req, res) => {
 };
 
 app.use(requestLogger);
+app.use(cookieParser());
 
 const corsOptions = {
   origin: 'http://localhost:3000',
   optionsSuccessStatus: 204,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
+  credentials: true,
 };
-
-app.options('*', cors());
 
 app.use(cors(corsOptions));
 

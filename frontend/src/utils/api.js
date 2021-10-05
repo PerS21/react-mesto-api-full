@@ -4,7 +4,7 @@ class Api {
         this._token = token;
 
         this._headers = {
-            authorization: this._token,
+            authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNWM0MjMzNDFiMjgwNjJjYzIyZWQzMSIsImlhdCI6MTYzMzQzNjIyMywiZXhwIjoxNjM0MDQxMDIzfQ.lWCh9sVMMtD04ZuCHnEYfs2xYEhgIWz2IeK0a0I7zVY',
             'Content-Type': 'application/json; charset=utf-8'
         }
     }
@@ -16,16 +16,22 @@ class Api {
         return Promise.reject(`Ошибка ${res.status}`);
     }
 
-    getCards() {
+    getCards(jwt) {
         return fetch(`${this._baseUrl}/cards`, {
-                headers: this._headers,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                "Authorization": `Bearer ${jwt}`,
+            },
             })
             .then(this._checkResponse)
     }
 
-    getUser() {
+    getUser(jwt) {
         return fetch(`${this._baseUrl}/users/me`, {
-                headers: this._headers,
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                "Authorization": `Bearer ${jwt}`,
+            },
             })
             .then(this._checkResponse)
             .then(user => {
@@ -78,7 +84,7 @@ class Api {
     }
 
     putLike(id) {
-        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'PUT',
                 headers: this._headers,
             })
@@ -86,7 +92,7 @@ class Api {
     }
 
     deleteLike(id) {
-        return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+        return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'DELETE',
                 headers: this._headers,
             })
@@ -102,5 +108,5 @@ class Api {
     }
 }
 
-const api = new Api('http://localhost:3001', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNWMwYmE0MWFhOGY1ZTNkM2FhOTFkYSIsImlhdCI6MTYzMzQyMjI1MSwiZXhwIjoxNjM0MDI3MDUxfQ.dDKdfE-Kn9TQZ3EVT-dnjYNowCiOWLbN8u1ETMdCYAo');
+const api = new Api('http://api.pers.nomoredomains.monster');
 export default api;

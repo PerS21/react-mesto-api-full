@@ -4,16 +4,22 @@ import React from 'react';
 function Card(props) {
     const currentUser = React.useContext(CurrentUserContext);
 
-    const isOwn = props.card.owner._id === currentUser._id;
+    const isOwn = props.card.owner === currentUser._id;
 
     const cardDeleteButtonClassName = (
         `element__trash card__delete-button button ${isOwn ? 'element__trash_visible' : 'element__trash_hidden'}`
     );
 
-    const isLiked = props.card.likes.some(i => i._id === currentUser._id);
+
+    const isLiked = () => {
+        if (props.card.likes) {
+            return props.card.likes.some(i => i === currentUser._id);
+        }
+        return false;
+    }
 
     const cardLikeButtonClassName = (
-        `element__heart ${isLiked ? 'element__heart_active' : 'element__heart_notActive'}`
+        `element__heart ${isLiked() ? 'element__heart_active' : 'element__heart_notActive'}`
     );
 
     function handleClick() {
@@ -35,7 +41,7 @@ function Card(props) {
                 <h2 className="element__text">{props.card.name}</h2>
                 <div>
                     <button type="button" className={cardLikeButtonClassName} onClick={handleCardLike}></button>
-                    <p className="element__heart-quantity">{props.card.likes.length}</p>
+                    <p className="element__heart-quantity">{props.card.likes ? props.card.likes.length : 0}</p>
                 </div>
             </div>
             <button type="button" className={cardDeleteButtonClassName} onClick={handleClickDelte}></button>

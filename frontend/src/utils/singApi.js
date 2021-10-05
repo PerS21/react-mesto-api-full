@@ -29,6 +29,7 @@ class SingApi {
     signIn(mail, password) {
         return fetch(`${this._baseUrl}/signin`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: this._headers,
                 body: JSON.stringify({
                     password: password,
@@ -58,5 +59,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('http://localhost:3001', 'da22e24c-dd01-4958-b7cb-8f4974dde69d');
+const singApi = new SingApi('http://api.pers.nomoredomains.monster');
 export default singApi;

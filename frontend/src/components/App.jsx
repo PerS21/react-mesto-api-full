@@ -31,6 +31,9 @@ function App() {
 
   const history = useHistory();
 
+  const [jwt, setJwt] = useState(localStorage.getItem('jwt'));
+
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setisLoading] = useState(true);
 
@@ -39,12 +42,12 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      api.getUser().then((res) => setСurrentUser(res)).catch(error => console.log(error));
-      api.getCards()
+      api.getUser(jwt).then((res) => setСurrentUser(res)).catch(error => console.log(error));
+      api.getCards(jwt)
         .then(res => setCards(res))
         .catch(error => console.log(error));
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, jwt]);
 
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -118,7 +121,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
 
     api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
       setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
@@ -150,11 +153,11 @@ function App() {
 
   useEffect(() => {
     if (localStorage.getItem('jwt')) {
-      const jwt = localStorage.getItem('jwt');
+      setJwt(localStorage.getItem('jwt'));
       singApi.check(jwt)
         .then((res) => {
-          localStorage.setItem('_id', res.data._id);
-          localStorage.setItem('email', res.data.email);
+          localStorage.setItem('_id', res._id);
+          localStorage.setItem('email', res.email);
           setIsLoggedIn(true)
         })
         .catch(er => console.log(er))
