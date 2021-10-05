@@ -7,13 +7,13 @@ const {
   Joi,
 } = require('celebrate');
 const validator = require('validator');
+const cors = require('cors');
 const routes = require('./routes');
 const {
   login,
   createUser,
 } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const cors = require('./middlewares/cors');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const isURL = (value) => {
@@ -26,7 +26,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3000,
+  PORT = 3001,
 } = process.env;
 
 const app = express();
@@ -40,7 +40,15 @@ module.exports.createCard = (req, res) => {
 
 app.use(requestLogger);
 
-app.use(cors);
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  optionsSuccessStatus: 204,
+  methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
+};
+
+app.options('*', cors());
+
+app.use(cors(corsOptions));
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

@@ -170,10 +170,15 @@ module.exports.login = (req, res, next) => {
           expiresIn: '1w',
         });
 
-        return res.status(200).send({
-          _id: user._id,
-          jwt: token,
+        res.cookie('jwt', token, {
+          maxAge: 3600000,
+          httpOnly: false,
         });
+        res.status(200)
+          .send({
+            _id: user._id,
+            jwt: token,
+          });
       });
     })
     .catch((error) => {

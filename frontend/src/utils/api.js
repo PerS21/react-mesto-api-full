@@ -102,5 +102,5 @@ class Api {
     }
 }
 
-const api = new Api('http://api.pers.nomoredomains.monster', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNWMwYmE0MWFhOGY1ZTNkM2FhOTFkYSIsImlhdCI6MTYzMzQyMjI1MSwiZXhwIjoxNjM0MDI3MDUxfQ.dDKdfE-Kn9TQZ3EVT-dnjYNowCiOWLbN8u1ETMdCYAo');
+const api = new Api('http://localhost:3001', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNWMwYmE0MWFhOGY1ZTNkM2FhOTFkYSIsImlhdCI6MTYzMzQyMjI1MSwiZXhwIjoxNjM0MDI3MDUxfQ.dDKdfE-Kn9TQZ3EVT-dnjYNowCiOWLbN8u1ETMdCYAo');
 export default api;
