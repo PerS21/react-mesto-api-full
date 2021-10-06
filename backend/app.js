@@ -28,7 +28,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3000,
+  PORT = 3001,
 } = process.env;
 
 const app = express();
@@ -47,6 +47,7 @@ const corsOptions = {
   optionsSuccessStatus: 204,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
   credentials: true,
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 app.use(cors(corsOptions));
