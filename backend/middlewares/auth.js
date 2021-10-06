@@ -21,7 +21,7 @@ module.exports = (req, res, next) => {
     return next(new NotEnoughRights('Необходима авторизация'));
   }
 
-  jwt.verify(token, 'JWT_SECRET', (err, decoded) => {
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) return next(new ParamsError('Ошибка токена'));
     req.user = {
       _id: decoded.id,
