@@ -18,7 +18,7 @@ const {
 const auth = require('./middlewares/auth');
 const {
   requestLogger,
-  errorLogger
+  errorLogger,
 } = require('./middlewares/logger');
 
 const isURL = (value) => {
@@ -45,7 +45,7 @@ module.exports.createCard = (req, res) => {};
 app.use(requestLogger);
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://pers.nomoredomains.club', 'http://127.0.0.1:5500'],
+  origin: ['http://localhost:3000', 'https://pers.nomoredomains.club', 'http://127.0.0.1:5500'],
   optionsSuccessStatus: 204,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
   credentials: true,
@@ -53,6 +53,12 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -79,7 +85,7 @@ app.use(errors());
 
 app.use((err, req, res, next) => {
   const {
-    statusCode = 500, message = 'Ошибка на сервере'
+    statusCode = 500, message = 'Ошибка на сервере',
   } = err;
   res.status(statusCode).send({
     message,
