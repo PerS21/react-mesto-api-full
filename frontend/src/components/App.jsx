@@ -157,7 +157,6 @@ function App() {
       return matches ? decodeURIComponent(matches[1]) : false;
     }
     const token = getCookie('jwt');
-    console.log(token);
     if (token) {
       singApi.check()
         .then(() => {

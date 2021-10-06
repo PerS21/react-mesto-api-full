@@ -60,5 +60,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('http://api.pers.nomoredomains.monster;');
+const singApi = new SingApi('http://api.pers.nomoredomains.monster');
 export default singApi;
