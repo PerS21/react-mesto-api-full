@@ -46,7 +46,7 @@ app.use(requestLogger);
 
 const corsOptions = {
   origin: ['http://localhost:3000', 'https://pers.nomoredomains.club', 'http://127.0.0.1:5500'],
-  optionsSuccessStatus: 204,
+  optionsSuccessStatus: 200,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
   credentials: true,
   allowedHeaders: ['Content-Type', 'Authorization'],
