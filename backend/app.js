@@ -43,7 +43,7 @@ module.exports.createCard = (req, res) => {
 app.use(requestLogger);
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'http://pers.nomoredomains.club'],
+  origin: 'http://pers.nomoredomains.club',
   optionsSuccessStatus: 204,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
   credentials: true,
