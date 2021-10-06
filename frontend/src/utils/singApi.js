@@ -12,6 +12,7 @@ class SingApi {
     signUp(mail, password) {
         return fetch(`${this._baseUrl}/signup`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: this._headers,
                 body: JSON.stringify({
                     password: password,
@@ -44,12 +45,12 @@ class SingApi {
             })
     }
 
-    check(jwt) {
+    check() {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'Get',
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
-                    "Authorization": `Bearer ${jwt}`,
                 },
             })
             .then((res) => {
@@ -59,5 +60,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('http://api.pers.nomoredomains.monster');
+const singApi = new SingApi('http://localhost:3001');
 export default singApi;

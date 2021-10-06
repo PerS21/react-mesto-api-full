@@ -31,8 +31,6 @@ function App() {
 
   const history = useHistory();
 
-  const [jwt, setJwt] = useState(localStorage.getItem('jwt'));
-
 
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setisLoading] = useState(true);
@@ -42,12 +40,12 @@ function App() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      api.getUser(jwt).then((res) => setСurrentUser(res)).catch(error => console.log(error));
-      api.getCards(jwt)
+      api.getUser().then((res) => setСurrentUser(res)).catch(error => console.log(error));
+      api.getCards()
         .then(res => setCards(res))
         .catch(error => console.log(error));
     }
-  }, [isLoggedIn, jwt]);
+  }, [isLoggedIn]);
 
   const [selectedCard, setSelectedCard] = useState(null);
 
@@ -116,7 +114,8 @@ function App() {
 
   function handleAddPlaceSubmit(name, link) {
     api.addCard(name, link)
-      .then((res) => { setCards([res, ...cards]); closeAllPopups() })
+      .then((res) => { 
+        setCards([res.message, ...cards]); closeAllPopups() })
       .catch(error => console.log(error));
   }
 
@@ -142,9 +141,7 @@ function App() {
 
   function handleLogin(email, password) {
     singApi.signIn(email, password)
-      .then((res) => {
-        localStorage.setItem('jwt', res.jwt);
-        localStorage.setItem('email', email);
+      .then(() => {
         setIsLoggedIn(true);
         history.push('/')
       })
@@ -152,12 +149,18 @@ function App() {
   }
 
   useEffect(() => {
-    if (localStorage.getItem('jwt')) {
-      setJwt(localStorage.getItem('jwt'));
-      singApi.check(jwt)
-        .then((res) => {
-          localStorage.setItem('_id', res._id);
-          localStorage.setItem('email', res.email);
+    function getCookie(name) {
+      let matches = document.cookie.match(new RegExp(
+        // eslint-disable-next-line no-useless-escape
+        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+      ));
+      return matches ? decodeURIComponent(matches[1]) : false;
+    }
+    const token = getCookie('jwt');
+    console.log(token);
+    if (token) {
+      singApi.check()
+        .then(() => {
           setIsLoggedIn(true)
         })
         .catch(er => console.log(er))

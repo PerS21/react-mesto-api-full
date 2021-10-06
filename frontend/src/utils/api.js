@@ -4,7 +4,6 @@ class Api {
         this._token = token;
 
         this._headers = {
-            authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxNWM0MjMzNDFiMjgwNjJjYzIyZWQzMSIsImlhdCI6MTYzMzQzNjIyMywiZXhwIjoxNjM0MDQxMDIzfQ.lWCh9sVMMtD04ZuCHnEYfs2xYEhgIWz2IeK0a0I7zVY',
             'Content-Type': 'application/json; charset=utf-8'
         }
     }
@@ -20,8 +19,8 @@ class Api {
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
-                "Authorization": `Bearer ${jwt}`,
             },
+            credentials: 'include',
             })
             .then(this._checkResponse)
     }
@@ -30,8 +29,8 @@ class Api {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
-                "Authorization": `Bearer ${jwt}`,
             },
+            credentials: 'include',
             })
             .then(this._checkResponse)
             .then(user => {
@@ -42,6 +41,7 @@ class Api {
     addCard(name, link) {
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'POST',
+                credentials: 'include',
                 headers: this._headers,
                 body: JSON.stringify({
                     name: name,
@@ -56,6 +56,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
                 method: 'DELETE',
                 headers: this._headers,
+                credentials: 'include',
             })
             .then(this._checkResponse)
     }
@@ -63,6 +64,7 @@ class Api {
     patchUserInfo(name, about) {
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
+                credentials: 'include',
                 headers: this._headers,
                 body: JSON.stringify({
                     name: name,
@@ -75,6 +77,7 @@ class Api {
     patchUserImg(avatar) {
         return fetch(`${this._baseUrl}/users/me/avatar`, {
                 method: 'PATCH',
+                credentials: 'include',
                 headers: this._headers,
                 body: JSON.stringify({
                     avatar: avatar,
@@ -87,6 +90,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'PUT',
                 headers: this._headers,
+                credentials: 'include',
             })
             .then(this._checkResponse)
     }
@@ -95,6 +99,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'DELETE',
                 headers: this._headers,
+                credentials: 'include',
             })
             .then(this._checkResponse)
     }
@@ -108,5 +113,5 @@ class Api {
     }
 }
 
-const api = new Api('http://api.pers.nomoredomains.monster');
+const api = new Api('http://localhost:3001');
 export default api;

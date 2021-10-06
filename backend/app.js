@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const process = require('process');
@@ -27,7 +28,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3001,
+  PORT = 3000,
 } = process.env;
 
 const app = express();
@@ -40,10 +41,9 @@ module.exports.createCard = (req, res) => {
 };
 
 app.use(requestLogger);
-app.use(cookieParser());
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: ['http://localhost:3000'],
   optionsSuccessStatus: 204,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
   credentials: true,

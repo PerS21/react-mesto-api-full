@@ -5,17 +5,23 @@ const ParamsError = require('../utils/errors/paramsError');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
-  const {
-    authorization,
-  } = req.headers;
+  const authorization = req.headers.cookie;
 
-  if (!authorization || !authorization.startsWith('Bearer ')) {
+  function getCookie(name) {
+    const matches = authorization.match(new RegExp(
+      // eslint-disable-next-line no-useless-escape
+      `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
+    ));
+    return matches ? decodeURIComponent(matches[1]) : false;
+  }
+
+  const token = getCookie('jwt');
+
+  if (!token) {
     return next(new NotEnoughRights('Необходима авторизация'));
   }
 
-  const token = authorization.replace('Bearer ', '');
-
-  jwt.verify(token, 'JWT_SECRET', (err, decoded) => {
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
     if (err) return next(new ParamsError('Ошибка токена'));
     req.user = {
       _id: decoded.id,
