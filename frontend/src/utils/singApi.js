@@ -5,7 +5,6 @@ class SingApi {
 
         this._headers = {
             'Content-Type': 'application/json; charset=utf-8',
-            'Access-Control-Allow-Origin': '*'
         }
     }
 
@@ -60,5 +59,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('http://localhost:3001');
+const singApi = new SingApi('https://api.pers.nomoredomains.monster');
 export default singApi;

@@ -4,7 +4,7 @@ class Api {
         this._token = token;
 
         this._headers = {
-            'Content-Type': 'application/json; charset=utf-8'
+            'Content-Type': 'application/json; charset=utf-8',
         }
     }
 
@@ -17,9 +17,7 @@ class Api {
 
     getCards() {
         return fetch(`${this._baseUrl}/cards`, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-            },
+            headers: this._headers,
             credentials: 'include',
             })
             .then(this._checkResponse)
@@ -27,9 +25,7 @@ class Api {
 
     getUser() {
         return fetch(`${this._baseUrl}/users/me`, {
-            headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-            },
+            headers: this._headers,
             credentials: 'include',
             })
             .then(this._checkResponse)
@@ -113,5 +109,5 @@ class Api {
     }
 }
 
-const api = new Api('http://localhost:3001');
+const api = new Api('https://api.pers.nomoredomains.monster');
 export default api;
