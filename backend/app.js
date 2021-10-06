@@ -28,7 +28,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3000,
+  PORT = 3001,
 } = process.env;
 
 const app = express();
@@ -43,7 +43,7 @@ module.exports.createCard = (req, res) => {
 app.use(requestLogger);
 
 const corsOptions = {
-  origin: 'http://pers.nomoredomains.club',
+  origin: ['http://localhost:3000', 'http://pers.nomoredomains.club', 'http://127.0.0.1:5500'],
   optionsSuccessStatus: 204,
   methods: ['GET,HEAD,PUT,PATCH,POST,DELETE'],
   credentials: true,

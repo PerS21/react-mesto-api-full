@@ -15,7 +15,7 @@ class Api {
         return Promise.reject(`Ошибка ${res.status}`);
     }
 
-    getCards(jwt) {
+    getCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -25,7 +25,7 @@ class Api {
             .then(this._checkResponse)
     }
 
-    getUser(jwt) {
+    getUser() {
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
                 'Content-Type': 'application/json; charset=utf-8',
@@ -113,5 +113,5 @@ class Api {
     }
 }
 
-const api = new Api('http://api.pers.nomoredomains.monster');
+const api = new Api('http://localhost:3001');
 export default api;
