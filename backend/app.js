@@ -16,7 +16,10 @@ const {
   createUser,
 } = require('./controllers/users');
 const auth = require('./middlewares/auth');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const {
+  requestLogger,
+  errorLogger
+} = require('./middlewares/logger');
 
 const isURL = (value) => {
   const result = validator.isURL(value);
@@ -28,7 +31,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3001,
+  PORT = 3000,
 } = process.env;
 
 const app = express();
@@ -37,8 +40,7 @@ mongoose.connect('mongodb://localhost:27017/mestodb');
 
 app.use(express.json());
 
-module.exports.createCard = (req, res) => {
-};
+module.exports.createCard = (req, res) => {};
 
 app.use(requestLogger);
 
@@ -76,7 +78,9 @@ app.use(errorLogger);
 app.use(errors());
 
 app.use((err, req, res, next) => {
-  const { statusCode = 500, message = 'Ошибка на сервере' } = err;
+  const {
+    statusCode = 500, message = 'Ошибка на сервере'
+  } = err;
   res.status(statusCode).send({
     message,
   });
