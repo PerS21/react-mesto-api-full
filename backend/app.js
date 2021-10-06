@@ -28,7 +28,7 @@ const isURL = (value) => {
 
 // Слушаем 3000 порт
 const {
-  PORT = 3001,
+  PORT = 3000,
 } = process.env;
 
 const app = express();
