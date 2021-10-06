@@ -3,8 +3,10 @@ class SingApi {
         this._baseUrl = baseUrl;
         this._token = token;
 
+
         this._headers = {
             'Content-Type': 'application/json; charset=utf-8',
+            'Access-Control-Allow-Origin': '*',
         }
     }
 
@@ -12,7 +14,9 @@ class SingApi {
         return fetch(`${this._baseUrl}/signup`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: this._headers,
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                },
                 body: JSON.stringify({
                     password: password,
                     email: mail
@@ -30,7 +34,10 @@ class SingApi {
         return fetch(`${this._baseUrl}/signin`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: this._headers,
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Access-Control-Allow-Origin': '*',
+                },
                 body: JSON.stringify({
                     password: password,
                     email: mail
