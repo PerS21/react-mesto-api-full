@@ -195,7 +195,7 @@ module.exports.login = (req, res, next) => {
 
         res.cookie('jwt', token, {
           maxAge: 3600000,
-          // domain: 'nomoredomains.club',
+          domain: 'nomoredomains.monster',
         });
         res.status(200)
           .send({
