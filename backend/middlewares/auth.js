@@ -2,28 +2,27 @@ const jwt = require('jsonwebtoken');
 const NotEnoughRights = require('../utils/errors/notEnoughRights');
 const ParamsError = require('../utils/errors/paramsError');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
+const {
+  NODE_ENV,
+  JWT_SECRET,
+} = process.env;
 
 module.exports = (req, res, next) => {
-  console.log(req.headers.cookie);
-  if (!req.headers.cookie) {
-    return next(new NotEnoughRights('Нет кук'));
-  }
+  // if (!req.headers.cookie) {
+  //   return next(new NotEnoughRights('Нет кук'));
+  // }
 
-  const authorization = req.headers.cookie;
+  // const authorization = req.headers.cookie;
 
-  function getCookie(name) {
-    if (authorization) {
-      const matches = authorization.match(new RegExp(
-      // eslint-disable-next-line no-useless-escape
-        `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
-      ));
-      return matches ? decodeURIComponent(matches[1]) : false;
-    }
-    return false;
-  }
+  // function getCookie(name) {
+  //   const matches = authorization.match(new RegExp(
+  //     // eslint-disable-next-line no-useless-escape
+  //     `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
+  //   ));
+  //   return matches ? decodeURIComponent(matches[1]) : false;
+  // }
 
-  const token = getCookie('jwt');
+  const token = req.headers.jwt;
 
   if (!token) {
     return next(new NotEnoughRights('Необходима авторизация'));

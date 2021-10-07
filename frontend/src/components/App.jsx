@@ -39,9 +39,10 @@ function App() {
   const [currentUser, setСurrentUser] = useState({ name: "", about: "", avatar: "", _id: "", cohort: "" });
 
   useEffect(() => {
+    const token = localStorage.getItem('jwt');
     if (isLoggedIn) {
-      api.getUser().then((res) => setСurrentUser(res)).catch(error => console.log(error));
-      api.getCards()
+      api.getUser(token).then((res) => setСurrentUser(res)).catch(error => console.log(error));
+      api.getCards(token)
         .then(res => setCards(res))
         .catch(error => console.log(error));
     }
@@ -141,7 +142,9 @@ function App() {
 
   function handleLogin(email, password) {
     singApi.signIn(email, password)
-      .then(() => {
+      .then((res) => {
+        localStorage.setItem('email', res.email); 
+        localStorage.setItem('jwt', res.jwt); 
         setIsLoggedIn(true);
         history.push('/')
       })
@@ -149,18 +152,17 @@ function App() {
   }
 
   useEffect(() => {
-    function getCookie(name) {
-      let matches = document.cookie.match(new RegExp(
-        // eslint-disable-next-line no-useless-escape
-        "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-      ));
-      return matches ? decodeURIComponent(matches[1]) : false;
-    }
-    const token = getCookie('jwt');
+    // function getCookie(name) {
+    //   let matches = document.cookie.match(new RegExp(
+    //     // eslint-disable-next-line no-useless-escape
+    //     "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
+    //   ));
+    //   return matches ? decodeURIComponent(matches[1]) : false;
+    // }
+    const token = localStorage.getItem('jwt'); 
     if (token) {
       singApi.check()
         .then((res) => {
-          console.log(res)
           localStorage.setItem('email', res.email); 
           setIsLoggedIn(true)
         })
@@ -172,38 +174,38 @@ function App() {
     }
   }, []);
 
-  function setCookie(name, value, options = {}) {
+  // function setCookie(name, value, options = {}) {
 
-    options = {
-      path: '/',
-      ...options
-    };
+  //   options = {
+  //     path: '/',
+  //     ...options
+  //   };
   
-    if (options.expires instanceof Date) {
-      options.expires = options.expires.toUTCString();
-    }
+  //   if (options.expires instanceof Date) {
+  //     options.expires = options.expires.toUTCString();
+  //   }
   
-    let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
+  //   let updatedCookie = encodeURIComponent(name) + "=" + encodeURIComponent(value);
   
-    for (let optionKey in options) {
-      updatedCookie += "; " + optionKey;
-      let optionValue = options[optionKey];
-      if (optionValue !== true) {
-        updatedCookie += "=" + optionValue;
-      }
-    }
+  //   for (let optionKey in options) {
+  //     updatedCookie += "; " + optionKey;
+  //     let optionValue = options[optionKey];
+  //     if (optionValue !== true) {
+  //       updatedCookie += "=" + optionValue;
+  //     }
+  //   }
   
-    document.cookie = updatedCookie;
-  }
+  //   document.cookie = updatedCookie;
+  // }
 
   function onSignOut() {
     localStorage.removeItem('jwt');
-    function deleteCookie(name) {
-      setCookie(name, "", {
-        'max-age': -1
-      })
-    }
-    deleteCookie('jwt');
+    // function deleteCookie(name) {
+    //   setCookie(name, "", {
+    //     'max-age': -1
+    //   })
+    // }
+    // deleteCookie('jwt');
     setIsLoggedIn(false);
     history.push('/sign-in');
   }

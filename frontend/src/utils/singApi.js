@@ -14,9 +14,7 @@ class SingApi {
         return fetch(`${this._baseUrl}/signup`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     password: password,
                     email: mail
@@ -34,10 +32,7 @@ class SingApi {
         return fetch(`${this._baseUrl}/signin`, {
                 method: 'POST',
                 credentials: 'include',
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Access-Control-Allow-Origin': '*',
-                },
+                headers: this._headers,
                 body: JSON.stringify({
                     password: password,
                     email: mail
@@ -52,11 +47,14 @@ class SingApi {
     }
 
     check() {
+        const token = localStorage.getItem('jwt'); 
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'Get',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                    jwt: token,
                 },
             })
             .then((res) => {
@@ -66,5 +64,7 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('https://api.pers.nomoredomains.monster');
+const token = localStorage.getItem('jwt'); 
+
+const singApi = new SingApi('http://localhost:3001');
 export default singApi;
