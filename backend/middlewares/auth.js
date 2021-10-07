@@ -5,14 +5,22 @@ const ParamsError = require('../utils/errors/paramsError');
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports = (req, res, next) => {
+  console.log(req.headers.cookie);
+  if (!req.headers.cookie) {
+    return next(new NotEnoughRights('Нет кук'));
+  }
+
   const authorization = req.headers.cookie;
 
   function getCookie(name) {
-    const matches = authorization.match(new RegExp(
+    if (authorization) {
+      const matches = authorization.match(new RegExp(
       // eslint-disable-next-line no-useless-escape
-      `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
-    ));
-    return matches ? decodeURIComponent(matches[1]) : false;
+        `(?:^|; )${name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1')}=([^;]*)`,
+      ));
+      return matches ? decodeURIComponent(matches[1]) : false;
+    }
+    return false;
   }
 
   const token = getCookie('jwt');
