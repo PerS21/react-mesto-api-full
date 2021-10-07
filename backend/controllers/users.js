@@ -201,6 +201,7 @@ module.exports.login = (req, res, next) => {
           .send({
             jwt: token,
             _id: user._id,
+            email: user.email,
           });
       });
     })
