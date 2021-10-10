@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const ParamsError = require('../utils/errors/paramsError');
 
 const {
-  NODE_ENV,
   JWT_SECRET = 'pers',
 } = process.env;
 

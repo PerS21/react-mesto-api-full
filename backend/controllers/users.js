@@ -8,10 +8,8 @@ const FoundError = require('../utils/errors/notFound');
 const UpdateError = require('../utils/errors/updateError');
 const ValidationError = require('../utils/errors/validationError');
 const ParamsError = require('../utils/errors/paramsError');
-const NotEnoughRights = require('../utils/errors/notEnoughRights');
 
 const {
-  NODE_ENV,
   JWT_SECRET = 'pers',
 } = process.env;
 
