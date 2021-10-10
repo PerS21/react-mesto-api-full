@@ -43,7 +43,10 @@ function App() {
     if (isLoggedIn) {
       api.getUser(token).then((res) => setСurrentUser(res)).catch(error => console.log(error));
       api.getCards(token)
-        .then(res => setCards(res))
+        .then(res => {
+          const arr = res.reverse();
+          setCards(arr);
+        })
         .catch(error => console.log(error));
     }
   }, [isLoggedIn]);
