@@ -64,7 +64,5 @@ class SingApi {
 
 }
 
-const token = localStorage.getItem('jwt'); 
-
 const singApi = new SingApi('https://api.pers.nomoredomains.monster');
 export default singApi;

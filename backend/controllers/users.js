@@ -10,27 +10,10 @@ const ValidationError = require('../utils/errors/validationError');
 const ParamsError = require('../utils/errors/paramsError');
 const NotEnoughRights = require('../utils/errors/notEnoughRights');
 
-const { NODE_ENV, JWT_SECRET } = process.env;
-
-module.exports = (req, res, next) => {
-  const {
-    authorization,
-  } = req.headers;
-
-  if (!authorization || !authorization.startsWith('Bearer ')) {
-    return next(new NotEnoughRights('Необходима авторизация'));
-  }
-
-  const token = authorization.replace('Bearer ', '');
-
-  jwt.verify(token, JWT_SECRET, (err, decoded) => {
-    if (err) return next(new ParamsError('Ошибка токена'));
-    req.user = {
-      _id: decoded.id,
-    };
-  });
-  next();
-};
+const {
+  NODE_ENV,
+  JWT_SECRET = 'pers',
+} = process.env;
 
 const saltRounds = 10;
 
@@ -62,11 +45,14 @@ module.exports.createUser = (req, res, next) => {
           email,
           password: hash,
         })
-          .then((newUser) => {
-            res.send({
-              data: newUser,
-            });
-          });
+          .then((userNew) => res.status(200).send({
+            data: {
+              name: userNew.name,
+              about: userNew.about,
+              avatar: userNew.avatar,
+              email: userNew.email,
+            },
+          }));
       });
     })
     .catch((error) => {
@@ -164,10 +150,6 @@ module.exports.login = (req, res, next) => {
     email,
     password,
   } = req.body;
-
-  if (!email || !password) {
-    return next(new ValidationError('Ошибка запроса'));
-  }
 
   User.findOne({
     email,

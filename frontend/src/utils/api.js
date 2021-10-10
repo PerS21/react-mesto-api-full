@@ -2,11 +2,6 @@ class Api {
     constructor(baseUrl, token) {
         this._baseUrl = baseUrl;
         this._token = token;
-
-        this._headers = {
-            'jwt': this._token,
-            'Content-Type': 'application/json; charset=utf-8',
-        }
     }
 
     _checkResponse(res) {
@@ -20,7 +15,7 @@ class Api {
         const token = localStorage.getItem('jwt'); 
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
-                'jwt': token,
+                'authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json; charset=utf-8',
             },
             credentials: 'include',
@@ -32,7 +27,7 @@ class Api {
         const token = localStorage.getItem('jwt'); 
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
-                'jwt': token,
+                'authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json; charset=utf-8',
             },
             credentials: 'include',
@@ -49,7 +44,7 @@ class Api {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
-                    'jwt': token,
+                    'authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 body: JSON.stringify({
@@ -66,7 +61,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
                 method: 'DELETE',
                 headers: {
-                    'jwt': token,
+                    'authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 credentials: 'include',
@@ -80,7 +75,7 @@ class Api {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {
-                    'jwt': token,
+                    'authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 body: JSON.stringify({
@@ -97,7 +92,7 @@ class Api {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {
-                    'jwt': token,
+                    'authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 body: JSON.stringify({
@@ -112,7 +107,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'PUT',
                 headers: {
-                    'jwt': token,
+                    'authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 credentials: 'include',
@@ -125,7 +120,7 @@ class Api {
         return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'DELETE',
                 headers: {
-                    'jwt': token,
+                    'authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 credentials: 'include',

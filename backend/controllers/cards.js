@@ -60,15 +60,19 @@ module.exports.deleteCardById = (req, res, next) => {
   Card.findById(req.params.cardId)
     .then((card) => {
       if (!card) next(new FoundError('Карточка не найдена'));
-      if (!(card.owner.toString() === req.user._id)) return next(new NotEnoughRights('Недостаточно прав'));
-      Card.findByIdAndRemove(req.params.cardId)
-        .then((deleteCard) => {
-          if (deleteCard) {
-            res.send({
-              message: 'Карточка удалена',
-            });
-          } else { next(new FoundError('Карточка не найдена')); }
-        });
+      else if (!(card.owner.toString() === req.user._id)) return next(new NotEnoughRights('Недостаточно прав'));
+      else {
+        Card.findByIdAndRemove(req.params.cardId)
+          .then((deleteCard) => {
+            if (deleteCard) {
+              res.send({
+                message: 'Карточка удалена',
+              });
+            } else {
+              next(new FoundError('Карточка не найдена'));
+            }
+          });
+      }
     })
     .catch((error) => {
       if (error.name === 'CastError') {

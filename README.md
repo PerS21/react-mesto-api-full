@@ -4,3 +4,5 @@
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
 Сайт - https://pers.nomoredomains.club/sign-in
+Сервер - https://api.pers.nomoredomains.monster/
+Публичный IP - 84.252.140.189

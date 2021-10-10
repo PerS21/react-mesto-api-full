@@ -144,7 +144,7 @@ function App() {
     singApi.signIn(email, password)
       .then((res) => {
         localStorage.setItem('email', res.email); 
-        localStorage.setItem('jwt', res.jwt); 
+        localStorage.setItem('authorization', `Bearer ${res.jwt}`); 
         setIsLoggedIn(true);
         history.push('/')
       })
