@@ -12,10 +12,10 @@ class Api {
     }
 
     getCards() {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/cards`, {
             headers: {
-                'authorization': `Bearer ${token}`,
+                'authorization': token,
                 'Content-Type': 'application/json; charset=utf-8',
             },
             credentials: 'include',
@@ -24,10 +24,10 @@ class Api {
     }
 
     getUser() {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/users/me`, {
             headers: {
-                'authorization': `Bearer ${token}`,
+                'authorization': token,
                 'Content-Type': 'application/json; charset=utf-8',
             },
             credentials: 'include',
@@ -39,12 +39,12 @@ class Api {
     }
 
     addCard(name, link) {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/cards`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: {
-                    'authorization': `Bearer ${token}`,
+                    'authorization': token,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 body: JSON.stringify({
@@ -57,11 +57,11 @@ class Api {
     }
 
     deleteCard(cardId) {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/cards/${cardId}`, {
                 method: 'DELETE',
                 headers: {
-                    'authorization': `Bearer ${token}`,
+                    'authorization': token,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 credentials: 'include',
@@ -70,12 +70,12 @@ class Api {
     }
 
     patchUserInfo(name, about) {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {
-                    'authorization': `Bearer ${token}`,
+                    'authorization': token,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 body: JSON.stringify({
@@ -87,12 +87,12 @@ class Api {
     }
 
     patchUserImg(avatar) {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/users/me/avatar`, {
                 method: 'PATCH',
                 credentials: 'include',
                 headers: {
-                    'authorization': `Bearer ${token}`,
+                    'authorization': token,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 body: JSON.stringify({
@@ -103,11 +103,11 @@ class Api {
     }
 
     putLike(id) {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'PUT',
                 headers: {
-                    'authorization': `Bearer ${token}`,
+                    'authorization': token,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 credentials: 'include',
@@ -116,11 +116,11 @@ class Api {
     }
 
     deleteLike(id) {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/cards/${id}/likes/`, {
                 method: 'DELETE',
                 headers: {
-                    'authorization': `Bearer ${token}`,
+                    'authorization': token,
                     'Content-Type': 'application/json; charset=utf-8',
                 },
                 credentials: 'include',
@@ -137,5 +137,5 @@ class Api {
     }
 }
 
-const api = new Api('https://api.pers.nomoredomains.monster');
+const api = new Api('http://localhost:3001');
 export default api;

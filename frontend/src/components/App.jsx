@@ -159,7 +159,7 @@ function App() {
     //   ));
     //   return matches ? decodeURIComponent(matches[1]) : false;
     // }
-    const token = localStorage.getItem('jwt'); 
+    const token = localStorage.getItem('authorization'); 
     if (token) {
       singApi.check()
         .then((res) => {

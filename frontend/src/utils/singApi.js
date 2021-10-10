@@ -47,14 +47,14 @@ class SingApi {
     }
 
     check() {
-        const token = localStorage.getItem('jwt'); 
+        const token = localStorage.getItem('authorization');
         return fetch(`${this._baseUrl}/users/me`, {
                 method: 'Get',
                 credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                     'Access-Control-Allow-Origin': '*',
-                    jwt: token,
+                    'authorization': token,
                 },
             })
             .then((res) => {
@@ -64,5 +64,5 @@ class SingApi {
 
 }
 
-const singApi = new SingApi('https://api.pers.nomoredomains.monster');
+const singApi = new SingApi('http://localhost:3001');
 export default singApi;
